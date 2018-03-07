@@ -1,12 +1,14 @@
-body, html {
-	background-image: url("space.jpg");
+body, html 
+{
+	background-image: url("images/space.jpg");
 	background-size: cover;
 	background-attachment: fixed;
 	margin: 0px;
 	padding: 0px;
 }
 
-div.contentMain {
+div.contentMain 
+{
 	padding: 20px;
 	height: 400px;
 	width: 900px;
@@ -15,7 +17,8 @@ div.contentMain {
 	margin-top: 100px;
 }
 
-canvas {
+canvas 
+{
     border:1px solid #d3d3d3;
     background-color: #f1f1f1;
     width: 480px;
