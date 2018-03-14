@@ -25,11 +25,11 @@ function startGame()
 {
 	gameArea.start();
 
-	var player = new Image;
+	var player = new Image();
 	player.src = "images/rocketship.png";
 	gamePiece = new component(player, 40, 38, "blue", 50, 270);
 
-	var enemySprite = new Image;
+	var enemySprite = new Image();
 	enemySprite.src = "images/alien.png";
 	enemy = new component(enemySprite, 70, 42, "red", 800, 270);
 }
@@ -48,6 +48,9 @@ var gameArea =
 	clear : function()
 	{
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		var background = new Image();
+		background.src = "images/background.jpg";
+		this.context.drawImage(background, 0, 0, canvasWidth, canvasHeight);
 	}
 }
 	
@@ -82,7 +85,6 @@ function component(sprite, width, height, color, x, y)
 
 function update()
 {
-	console.log("time is running");
 
 	if(startMoving)
 		time = ++frame/60;
@@ -113,6 +115,7 @@ function handleUI ()
 
 	var timeDisplayText = 0;
 
+	context.strokeStyle = "#FFF";
 	context.strokeText("Time: " + timeDisplayText.toFixed(1),20,50);
 	context.strokeText("Score: " + timeDisplayText.toFixed(0) * 100,20,520);
 }
