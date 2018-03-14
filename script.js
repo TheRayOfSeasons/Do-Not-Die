@@ -3,6 +3,8 @@ var gamePiece,
 	canvasHeight = 540,
 	enemy,
 
+	background,
+
 	w = 87,
 	a = 65,
 	s = 83,
@@ -32,6 +34,9 @@ function startGame()
 	var enemySprite = new Image();
 	enemySprite.src = "images/alien.png";
 	enemy = new component(enemySprite, 70, 42, "red", 800, 270);
+
+	background = new Image();
+	background.src = "images/background.jpg";
 }
 
 var gameArea = 
@@ -60,8 +65,6 @@ var gameArea =
 	clear : function()
 	{
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		var background = new Image();
-		background.src = "images/background.jpg";
 		this.context.drawImage(background, 0, 0, canvasWidth, canvasHeight);
 	}
 }
