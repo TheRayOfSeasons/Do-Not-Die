@@ -24,6 +24,8 @@ var gamePiece,
 	gameOver = false,
 	doOnce = true,
 
+	seconds = 0,
+	minutes = 0,
 	finalTime, 
 	finalScore;
 
@@ -113,6 +115,13 @@ function update()
 		chaseSpeed += 0.01;
 	}
 
+	if(time % 60 == 0)
+	{
+		frame = 0;
+		minutes++;
+		console.log(minutes);
+	}
+
 	gameArea.clear();
 
 	spawnEnemies();
@@ -140,23 +149,23 @@ function handleStartingUI ()
 	context.strokeText("Controls: WASD",345,350);
 }
 
-function handleIngameUI ()
+function handleIngameUI()
 {
 	context.font = "30px Arial";
 
-	// timeCount 
+	seconds = time.toFixed(1);
 
 	if (!gameOver)
 	{
 		context.strokeStyle = "#FFF";
-		context.strokeText("Time: " + time.toFixed(1),20,50);
+		context.strokeText(minutes + ":" + ((seconds < 10)? "0" : "") + seconds, 20, 50);
 		context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
 	}
 	else 
 	{
 		if (doOnce)
 		{
-			finalTime = time.toFixed(1);
+			finalTime = minutes + ":" + ((seconds < 10)? "0" : "") + seconds;
 			finalScore = time.toFixed(0) * 100;
 			doOnce = false;
 		}
@@ -167,7 +176,7 @@ function handleEndGameUI ()
 {
 	if (finalTime != null && finalScore !=null)
 	{
-		context.strokeText("Time: " + finalTime , 20, 50);
+		context.strokeText(finalTime , 20, 50);
 		context.strokeText("Score: " + finalScore , 20, 520);
 	}
 }
@@ -241,8 +250,8 @@ function handleInput()
 
 function spawnEnemies()
 {
-	// enemy.speedX = (gamePiece.x - enemy.x) * chaseSpeed;
-	// enemy.speedY = (gamePiece.y - enemy.y) * chaseSpeed;
+	enemy.speedX = (gamePiece.x - enemy.x) * chaseSpeed;
+	enemy.speedY = (gamePiece.y - enemy.y) * chaseSpeed;
 	enemy.move();
 	enemy.update();
 }
