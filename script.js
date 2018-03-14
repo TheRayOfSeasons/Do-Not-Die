@@ -63,8 +63,6 @@ function component(sprite, width, height, color, x, y)
 	{
 		context = gameArea.context;
 		context.drawImage(sprite, this.x, this.y, this.width, this.height);
-		// context.fillStyle = color;
-		// context.fillRect(this.x, this.y, this.width, this.height);
 	},
 	this.move = function()
 	{
@@ -82,8 +80,6 @@ function component(sprite, width, height, color, x, y)
 
 function update()
 {
-	console.log("time is running");
-
 	if(startMoving)
 		time = ++frame/60;
 
@@ -98,7 +94,10 @@ function update()
 	spawnEnemies();
 
 	if(startMoving)
-		handleUI();
+		handleIngameUI();
+
+		// handleEndGameUI();
+
 	handleInput();
 	gamePiece.move();
 	checkCollision();
@@ -107,19 +106,26 @@ function update()
 		gamePiece.update();
 }
 
-function handleUI ()
+function handleIngameUI ()
 {
 	context.font = "30px Arial";
 
-	var timeDisplayText = 0;
-
-	context.strokeText("Time: " + timeDisplayText.toFixed(1),20,50);
-	context.strokeText("Score: " + timeDisplayText.toFixed(0) * 100,20,520);
+	if (!gameOver)
+	{
+		context.strokeText("Time: " + time.toFixed(1),20,50);
+		context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
+	}
 }
 
-function countUp ()
+function handleEndGameUI ()
 {
-	
+	context.rect(350, 30,300,450);
+	context.stroke();
+	// context.rect = (0,0,300, 450);
+	// context.stroke();
+	// context.font = "30px Arial";
+	// context.strokeText("Time: " + time.toFixed(1),20,50);
+	// context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
 }
 
 function handleInput()
