@@ -22,8 +22,8 @@ var gamePiece,
 
 	startMoving = false,
 	gameOver = false,
-
 	doOnce = true,
+
 	finalTime, 
 	finalScore;
 
@@ -144,6 +144,8 @@ function handleIngameUI ()
 {
 	context.font = "30px Arial";
 
+	// timeCount 
+
 	if (!gameOver)
 	{
 		context.strokeStyle = "#FFF";
@@ -163,21 +165,18 @@ function handleIngameUI ()
 
 function handleEndGameUI ()
 {
-	// context.rect(350, 30,300,450);
-	// context.fillRect(350,30,300,450);
-	// context.fillStyle = "#FFF";
-
-	// context.fillText("Time Survived: " + finalTime + "\n" + 
-	// 				 "FinalScore: " + finalScore,200,50);
-	
 	if (finalTime != null && finalScore !=null)
 	{
 		context.strokeText("Time: " + finalTime , 20, 50);
 		context.strokeText("Score: " + finalScore , 20, 520);
 	}
-
-	// context.stroke();
 }
+
+var 
+	leftIsPressed = false, 
+	rightIsPressed = false, 
+	upIsPressed = false, 
+	downIsPressed = false;
 
 function handleInput()
 {
@@ -185,35 +184,65 @@ function handleInput()
 	{
 		var key = event.keyCode;
 		if(key == w || key == up)
+		{
 			gamePiece.speedY = -speed;
-		else if(key == a || key == left)
+			upIsPressed = true;
+		}
+		if(key == a || key == left)
+		{
 			gamePiece.speedX = -speed;
-		else if(key == s || key == down)
+			leftIsPressed = true;
+		}
+		if(key == s || key == down)
+		{
 			gamePiece.speedY = speed;
-		else if(key == d || key == right)
+			downIsPressed = true;
+		}
+		if(key == d || key == right)
+		{
 			gamePiece.speedX = speed;
-		else if(key == spacebar)
+			rightIsPressed = true;
+		}
+		if(key == spacebar)
 			startMoving = true;
+
 	});
 
 	window.addEventListener("keyup", function(event)
 	{
 		var key = event.keyCode;
 		if(key == w || key == up)
-			gamePiece.speedY = 0;
-		else if(key == a || key == left)
-			gamePiece.speedX = 0;
-		else if(key == s || key == down)
-			gamePiece.speedY = 0;
-		else if(key == d || key == right)
-			gamePiece.speedX = 0;
+		{
+			upIsPressed = false;
+			if(!upIsPressed && !downIsPressed)
+				gamePiece.speedY = 0;
+		}
+		if(key == s || key == down)
+		{
+			downIsPressed = false;
+			if(!upIsPressed && !downIsPressed)
+				gamePiece.speedY = 0;
+		}
+
+		if(key == a || key == left)
+		{
+			leftIsPressed = false;
+			if(!leftIsPressed && !rightIsPressed)
+				gamePiece.speedX = 0;
+		}
+		if(key == d || key == right)
+		{
+			rightIsPressed = false;
+			if(!leftIsPressed && !rightIsPressed)
+				gamePiece.speedX = 0;
+		}
 	});
 }
 
 function spawnEnemies()
 {
-	enemy.speedX = (gamePiece.x - enemy.x) * chaseSpeed;
-	enemy.speedY = (gamePiece.y - enemy.y) * chaseSpeed;
+	// enemy.speedX = (gamePiece.x - enemy.x) * chaseSpeed;
+	// enemy.speedY = (gamePiece.y - enemy.y) * chaseSpeed;
 	enemy.move();
 	enemy.update();
 }
