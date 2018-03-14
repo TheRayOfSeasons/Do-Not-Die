@@ -87,6 +87,7 @@ function update()
 
 	spawnEnemies();
 	handleUI();
+	handleInput();
 	gamePiece.move();
 	checkCollision();
 	checkEnemyCollision();
@@ -98,10 +99,15 @@ function handleUI ()
 {
 	context.font = "30px Arial";
 
-	var timeDisplayText = time;
+	var timeDisplayText = 0;
 
-	context.strokeText("Time: " + time.toFixed(1),20,50);
-	context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
+	context.strokeText("Time: " + timeDisplayText.toFixed(1),20,50);
+	context.strokeText("Score: " + timeDisplayText.toFixed(0) * 100,20,520);
+}
+
+function countUp ()
+{
+	
 }
 
 function handleInput()
