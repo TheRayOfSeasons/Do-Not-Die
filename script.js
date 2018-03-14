@@ -82,7 +82,10 @@ function component(sprite, width, height, color, x, y)
 
 function update()
 {
-	time = ++frame/60;
+	console.log("time is running");
+
+	if(startMoving)
+		time = ++frame/60;
 
 	if(time % 5 == 0)
 	{
@@ -94,7 +97,8 @@ function update()
 
 	spawnEnemies();
 
-	handleUI();
+	if(startMoving)
+		handleUI();
 	handleInput();
 	gamePiece.move();
 	checkCollision();
@@ -107,7 +111,7 @@ function handleUI ()
 {
 	context.font = "30px Arial";
 
-	var timeDisplayText = time;
+	// var timeDisplayText = time;
 
 	context.strokeText("Time: " + time.toFixed(1),20,50);
 	context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
