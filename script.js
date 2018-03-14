@@ -23,7 +23,8 @@ var gamePiece,
 
 	doOnce = true,
 	finalTime, 
-	finalScore;
+	finalScore,
+	minuteCount = 0;
 
 function startGame()
 {
@@ -117,7 +118,7 @@ function update()
 	if(!startMoving)
 		handleStartingUI();
 	else
-		handleIngamUI();		
+		handleIngameUI();		
 
 	handleInput();
 	gamePiece.move();
@@ -141,13 +142,14 @@ function handleIngameUI ()
 {
 	context.font = "30px Arial";
 
-	timeCount 
+	var timeCount = time.toFixed(1);
+	var scoreCount = time.toFixed(0) * 100;
 
 	if (!gameOver)
 	{
 		context.strokeStyle = "#FFF";
-		context.strokeText("Time: " + time.toFixed(1),20,50);
-		context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
+		context.strokeText("Time: " + minuteCount.toFixed(0) + ":" + timeCount, 20, 50);
+		context.strokeText("Score: " + scoreCount, 20, 520);
 	}
 	else 
 	{
@@ -164,7 +166,7 @@ function handleEndGameUI ()
 {
 	if (finalTime != null && finalScore !=null)
 	{
-		context.strokeText("Time: " + finalTime , 20, 50);
+		context.strokeText("Time: " + minuteCount + ":" + finalTime , 20, 50);
 		context.strokeText("Score: " + finalScore , 20, 520);
 	}
 }
