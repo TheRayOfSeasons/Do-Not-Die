@@ -107,7 +107,7 @@ function component(sprite, width, height, color, x, y)
 function update()
 {
 	if(startMoving)
-		time = ++frame/60;
+		time = ++frame/60 ;
 
 	if(time % 5 == 0)
 	{
@@ -158,8 +158,8 @@ function handleIngameUI()
 	if (!gameOver)
 	{
 		context.strokeStyle = "#FFF";
-		context.strokeText(minutes + ":" + ((seconds < 10)? "0" : "") + seconds, 20, 50);
-		context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
+		context.strokeText(minutes + ":" + ((seconds < 10)? "0" : "") + seconds, 415, 40);
+		context.strokeText("Score: " + time.toFixed(0) * 100, 20, 40);
 	}
 	else 
 	{
@@ -176,8 +176,8 @@ function handleEndGameUI ()
 {
 	if (finalTime != null && finalScore !=null)
 	{
-		context.strokeText(finalTime , 20, 50);
-		context.strokeText("Score: " + finalScore , 20, 520);
+		context.strokeText(finalTime , 415, 40);
+		context.strokeText("Score: " + finalScore , 20, 40);
 	}
 }
 
