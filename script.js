@@ -19,11 +19,17 @@ var gamePiece,
 	time,
 
 	startMoving = false,
-	gameOver = false;
+	gameOver = false,
+
+	doOnce = true,
+	finalTime, 
+	finalScore;
 
 function startGame()
 {
 	gameArea.start();
+
+	doOnce = true;
 
 	var player = new Image();
 	player.src = "images/rocketship.png";
@@ -96,10 +102,10 @@ function update()
 
 	spawnEnemies();
 
-	if(startMoving)
-		handleIngameUI();
-
-		// handleEndGameUI();
+	if(!startMoving)
+		handleStartingUI();
+	else
+		handleIngameUI();		
 
 	handleInput();
 	gamePiece.move();
@@ -107,28 +113,55 @@ function update()
 	checkEnemyCollision();
 	if(!gameOver)
 		gamePiece.update();
+	else
+		handleEndGameUI();
+}
+
+function handleStartingUI ()
+{
+	context.font = "30px Arial";
+	context.strokeStyle = "#FFF";
+	context.strokeText("Press Space to Start",345,280);
+	context.strokeText("Controls: WASD",345,350);
 }
 
 function handleIngameUI ()
 {
 	context.font = "30px Arial";
 
-	var timeDisplayText = 0;
-
-	context.strokeStyle = "#FFF";
-	context.strokeText("Time: " + timeDisplayText.toFixed(1),20,50);
-	context.strokeText("Score: " + timeDisplayText.toFixed(0) * 100,20,520);
+	if (!gameOver)
+	{
+		context.strokeStyle = "#FFF";
+		context.strokeText("Time: " + time.toFixed(1),20,50);
+		context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
+	}
+	else 
+	{
+		if (doOnce)
+		{
+			finalTime = time.toFixed(1);
+			finalScore = time.toFixed(0) * 100;
+			doOnce = false;
+		}
+	}
 }
 
 function handleEndGameUI ()
 {
-	context.rect(350, 30,300,450);
-	context.stroke();
-	// context.rect = (0,0,300, 450);
+	// context.rect(350, 30,300,450);
+	// context.fillRect(350,30,300,450);
+	// context.fillStyle = "#FFF";
+
+	// context.fillText("Time Survived: " + finalTime + "\n" + 
+	// 				 "FinalScore: " + finalScore,200,50);
+	
+	if (finalTime != null && finalScore !=null)
+	{
+		context.strokeText("Time: " + finalTime , 20, 50);
+		context.strokeText("Score: " + finalScore , 20, 520);
+	}
+
 	// context.stroke();
-	// context.font = "30px Arial";
-	// context.strokeText("Time: " + time.toFixed(1),20,50);
-	// context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
 }
 
 function handleInput()
