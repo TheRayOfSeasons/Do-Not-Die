@@ -24,8 +24,14 @@ var gamePiece,
 function startGame()
 {
 	gameArea.start();
-	gamePiece = new component(30, 30, "blue", 50, 270);
-	enemy = new component(70, 70, "red", 800, 270);
+
+	var player = new Image;
+	player.src = "images/rocketship.png";
+	gamePiece = new component(player, 40, 40, "blue", 50, 270);
+
+	var enemySprite = new Image;
+	enemySprite.src = "images/alien.png";
+	enemy = new component(enemySprite, 70, 70, "red", 800, 270);
 }
 
 var gameArea = 
@@ -45,19 +51,20 @@ var gameArea =
 	}
 }
 	
-function component(width, height, color, x, y)
+function component(sprite, width, height, color, x, y)
 {
 	this.width = width;
 	this.height = height;
 	this.x = x;
 	this.y = y;
 	this.speedX = 0;
-	this.speedY = 0;	
+	this.speedY = 0
 	this.update = function()
 	{
 		context = gameArea.context;
-		context.fillStyle = color;
-		context.fillRect(this.x, this.y, this.width, this.height);
+		context.drawImage(sprite, this.x, this.y, this.width, this.height);
+		// context.fillStyle = color;
+		// context.fillRect(this.x, this.y, this.width, this.height);
 	},
 	this.move = function()
 	{
