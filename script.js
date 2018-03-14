@@ -3,6 +3,8 @@ var gamePiece,
 	canvasHeight = 540,
 	enemy,
 
+	background,
+
 	w = 87,
 	a = 65,
 	s = 83,
@@ -20,8 +22,8 @@ var gamePiece,
 
 	startMoving = false,
 	gameOver = false,
-
 	doOnce = true,
+
 	finalTime, 
 	finalScore,
 	minuteCount = 0;
@@ -39,6 +41,9 @@ function startGame()
 	var enemySprite = new Image();
 	enemySprite.src = "images/alien.png";
 	enemy = new component(enemySprite, 70, 42, "red", 800, 270);
+
+	background = new Image();
+	background.src = "images/background.jpg";
 }
 
 var gameArea = 
@@ -67,8 +72,6 @@ var gameArea =
 	clear : function()
 	{
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		var background = new Image();
-		background.src = "images/background.jpg";
 		this.context.drawImage(background, 0, 0, canvasWidth, canvasHeight);
 	}
 }
@@ -142,9 +145,6 @@ function handleIngameUI ()
 {
 	context.font = "30px Arial";
 
-	var timeCount = time.toFixed(1);
-	var scoreCount = time.toFixed(0) * 100;
-
 	if (!gameOver)
 	{
 		context.strokeStyle = "#FFF";
@@ -171,41 +171,77 @@ function handleEndGameUI ()
 	}
 }
 
+var 
+	leftIsPressed = false, 
+	rightIsPressed = false, 
+	upIsPressed = false, 
+	downIsPressed = false;
+
 function handleInput()
 {
 	window.addEventListener("keydown", function(event)
 	{
 		var key = event.keyCode;
 		if(key == w || key == up)
+		{
 			gamePiece.speedY = -speed;
-		else if(key == a || key == left)
+			upIsPressed = true;
+		}
+		if(key == a || key == left)
+		{
 			gamePiece.speedX = -speed;
-		else if(key == s || key == down)
+			leftIsPressed = true;
+		}
+		if(key == s || key == down)
+		{
 			gamePiece.speedY = speed;
-		else if(key == d || key == right)
+			downIsPressed = true;
+		}
+		if(key == d || key == right)
+		{
 			gamePiece.speedX = speed;
-		else if(key == spacebar)
+			rightIsPressed = true;
+		}
+		if(key == spacebar)
 			startMoving = true;
+
 	});
 
 	window.addEventListener("keyup", function(event)
 	{
 		var key = event.keyCode;
 		if(key == w || key == up)
-			gamePiece.speedY = 0;
-		else if(key == a || key == left)
-			gamePiece.speedX = 0;
-		else if(key == s || key == down)
-			gamePiece.speedY = 0;
-		else if(key == d || key == right)
-			gamePiece.speedX = 0;
+		{
+			upIsPressed = false;
+			if(!upIsPressed && !downIsPressed)
+				gamePiece.speedY = 0;
+		}
+		if(key == s || key == down)
+		{
+			downIsPressed = false;
+			if(!upIsPressed && !downIsPressed)
+				gamePiece.speedY = 0;
+		}
+
+		if(key == a || key == left)
+		{
+			leftIsPressed = false;
+			if(!leftIsPressed && !rightIsPressed)
+				gamePiece.speedX = 0;
+		}
+		if(key == d || key == right)
+		{
+			rightIsPressed = false;
+			if(!leftIsPressed && !rightIsPressed)
+				gamePiece.speedX = 0;
+		}
 	});
 }
 
 function spawnEnemies()
 {
-	enemy.speedX = (gamePiece.x - enemy.x) * chaseSpeed;
-	enemy.speedY = (gamePiece.y - enemy.y) * chaseSpeed;
+	// enemy.speedX = (gamePiece.x - enemy.x) * chaseSpeed;
+	// enemy.speedY = (gamePiece.y - enemy.y) * chaseSpeed;
 	enemy.move();
 	enemy.update();
 }
