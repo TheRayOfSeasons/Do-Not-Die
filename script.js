@@ -86,12 +86,22 @@ function update()
 	gameArea.clear();
 
 	spawnEnemies();
-	handleInput();
+	handleUI();
 	gamePiece.move();
 	checkCollision();
 	checkEnemyCollision();
 	if(!gameOver)
 		gamePiece.update();
+}
+
+function handleUI ()
+{
+	context.font = "30px Arial";
+
+	var timeDisplayText = time;
+
+	context.strokeText("Time: " + time.toFixed(1),20,50);
+	context.strokeText("Score: " + time.toFixed(0) * 100,20,520);
 }
 
 function handleInput()
