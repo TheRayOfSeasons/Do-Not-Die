@@ -27,11 +27,11 @@ function startGame()
 
 	var player = new Image;
 	player.src = "images/rocketship.png";
-	gamePiece = new component(player, 40, 40, "blue", 50, 270);
+	gamePiece = new component(player, 40, 38, "blue", 50, 270);
 
 	var enemySprite = new Image;
 	enemySprite.src = "images/alien.png";
-	enemy = new component(enemySprite, 70, 70, "red", 800, 270);
+	enemy = new component(enemySprite, 70, 42, "red", 800, 270);
 }
 
 var gameArea = 
@@ -93,7 +93,9 @@ function update()
 	gameArea.clear();
 
 	spawnEnemies();
+
 	handleUI();
+	handleInput();
 	gamePiece.move();
 	checkCollision();
 	checkEnemyCollision();
