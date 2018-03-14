@@ -117,7 +117,7 @@ function update()
 	if(!startMoving)
 		handleStartingUI();
 	else
-		handleIngameUI();		
+		handleIngamUI();		
 
 	handleInput();
 	gamePiece.move();
@@ -141,6 +141,8 @@ function handleIngameUI ()
 {
 	context.font = "30px Arial";
 
+	timeCount 
+
 	if (!gameOver)
 	{
 		context.strokeStyle = "#FFF";
@@ -160,20 +162,11 @@ function handleIngameUI ()
 
 function handleEndGameUI ()
 {
-	// context.rect(350, 30,300,450);
-	// context.fillRect(350,30,300,450);
-	// context.fillStyle = "#FFF";
-
-	// context.fillText("Time Survived: " + finalTime + "\n" + 
-	// 				 "FinalScore: " + finalScore,200,50);
-	
 	if (finalTime != null && finalScore !=null)
 	{
 		context.strokeText("Time: " + finalTime , 20, 50);
 		context.strokeText("Score: " + finalScore , 20, 520);
 	}
-
-	// context.stroke();
 }
 
 function handleInput()
