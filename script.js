@@ -45,8 +45,20 @@ var gameArea =
 	canvas : document.createElement("canvas"),
 	start : function()
 	{
+		var documentWidth = document.body.clientWidth;
+		var documentHeight = Math.max(window.innerHeight, document.body.clientHeight);
+		this.canvas.x = documentWidth/2;
 		this.canvas.width = canvasWidth;
 		this.canvas.height = canvasHeight;
+
+		var style = 
+			"position: absolute;" +
+			"left: 50%;" +
+			"margin-left: -480px;" +
+			"top: 50%;" +
+			"margin-top: -270px;";
+
+		this.canvas.setAttribute('style', style);
 		this.context = this.canvas.getContext("2d");
 		document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 		this.interval = setInterval(update, 1000/60);
